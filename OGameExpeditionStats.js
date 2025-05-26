@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-26-2
+// @version      2025-05-26-3
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -201,7 +201,7 @@
                         text_bits.push(data.id??'');
                         text_bits.push(data.timestamp??'');
                         text_bits.push(data.date??'');
-                        text_bits.push('');
+                        text_bits.push(data.time??'');
                         text_bits.push(data.coords??'');
                         text_bits.push(data.size??'');
                         text_bits.push(data.depletion??'');
