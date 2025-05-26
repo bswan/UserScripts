@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-26-1
+// @version      2025-05-26-2
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -150,6 +150,9 @@
                             year: "numeric",
                             month: "numeric",
                             day: "numeric",
+                            timeZone: 'Europe/Kyiv'
+                        });
+                        const timeFormat = new Intl.DateTimeFormat('en-GB', {
                             hour: "numeric",
                             minute: "numeric",
                             second: "numeric",
@@ -160,6 +163,7 @@
                             id: id,
                             coords: rawData.dataset.rawCoords,
                             date: dtFormat.format(date),
+                            time: timeFormat.format(date),
                             depletion: rawData.dataset.rawDepletion,
                             result: rawData.dataset.rawExpeditionresult,
                             size: rawData.dataset.rawSize,
