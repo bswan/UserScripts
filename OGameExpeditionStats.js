@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-26-4
+// @version      2025-05-26-5
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -183,6 +183,13 @@
                         if(rawData.dataset.rawResourcesgained) {
                             const resourcesData = JSON.parse(rawData.dataset.rawResourcesgained);
                             data = { ...data, ...resourcesData };
+                        }
+                        if(rawData.dataset.rawResources) {
+                            const resourcesData = JSON.parse(rawData.dataset.rawResources);
+                            data.exchangeRateMetal = resourcesData["1"];
+                            data.exchangeRateCrystal = resourcesData["2"];
+                            data.exchangeRateDeuterium = resourcesData["3"];
+                            console.dir(data);
                         }
                         if(rawData.dataset.rawTechnologiesgained) {
                             const fleetData = JSON.parse(rawData.dataset.rawTechnologiesgained);
