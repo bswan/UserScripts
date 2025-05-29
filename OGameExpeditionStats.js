@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-26-5
+// @version      2025-05-29-1
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -198,6 +198,14 @@
                                 data[ship.name] = ship.amount;
                             });
                         }
+                        if(rawData.dataset.rawItemsgained) {
+                            data.items = "";
+                            const itemsData = JSON.parse(rawData.dataset.rawItemsgained);
+                            itemsData.forEach((item)=>{
+                                if(data.items) data.items+= "\n";
+                                data.items+= item.amount + "x " + item.name;
+                            });
+                        }
                         if(depletionStats[data.coords] === undefined || depletionStats[data.coords].timestamp < data.timestamp) {
                             depletionStats[data.coords] = {
                                 timestamp: data.timestamp,
@@ -217,7 +225,7 @@
                         text_bits.push(data.returnIncrease??'');
                         text_bits.push(data.returnMultiplier??'');
                         text_bits.push(data.darkMatter??'');
-                        text_bits.push('');
+                        text_bits.push(data.items??'');
                         text_bits.push(data.metal??'');
                         text_bits.push(data.crystal??'');
                         text_bits.push(data.deuterium??'');
