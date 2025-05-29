@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-29-1
+// @version      2025-05-29-2
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -137,7 +137,8 @@
                         nothing: "Nothing",
                         ressources: "Resources",
                         shipwrecks: "Fleet",
-                        trader: "Trader"
+                        trader: "Trader",
+                        items: "Item"
                     };
                     const messages = document.querySelectorAll(`.msg`);
 
