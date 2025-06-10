@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OGame Exp Data
 // @namespace    http://tampermonkey.net/
-// @version      2025-05-29-2
+// @version      2025-06-10-1
 // @description  Toolkit to gather Exp data from OGame messages
 // @author       Vladyslav *BlackSwan* Aksonov
 // @match        https://s262-en.ogame.gameforge.com/game/index.php*
@@ -138,7 +138,37 @@
                         ressources: "Resources",
                         shipwrecks: "Fleet",
                         trader: "Trader",
-                        items: "Item"
+                        items: "Item",
+                        fleetLost: "LOST"
+                    };
+                    const ships_dict = {
+                        "202": "Small Cargo",
+                        "203": "Large Cargo",
+                        "204": "Light Fighter",
+                        "205": "Heavy Fighter",
+                        "206": "Cruiser",
+                        "207": "Battleship",
+                        "208": "Colony Ship",
+                        "209": "Recycler",
+                        "210": "Espionage Probe",
+                        "211": "Bomber",
+                        "212": "Solar Satellite",
+                        "213": "Destroyer",
+                        "214": "Deathstar",
+                        "215": "Battlecruiser",
+                        "217": "Crawler",
+                        "218": "Reaper",
+                        "219": "Pathfinder",
+                        "401": "Rocket Launcher",
+                        "402": "Light Laser",
+                        "403": "Heavy Laser",
+                        "404": "Gauss Cannon",
+                        "405": "Ion Cannon",
+                        "406": "Plasma Turret",
+                        "407": "Small Shield Dome",
+                        "408": "Large Shield Dome",
+                        "502": "Anti-Ballistic Missiles",
+                        "503": "Interplanetary Missiles"
                     };
                     const messages = document.querySelectorAll(`.msg`);
 
@@ -197,6 +227,13 @@
                             Object.keys(fleetData).forEach((ship_id)=>{
                                 const ship = fleetData[ship_id];
                                 data[ship.name] = ship.amount;
+                            });
+                        }
+                        if(rawData.dataset.rawShipslost) {
+                            const fleetLost = JSON.parse(rawData.dataset.rawShipslost);
+                            Object.keys(fleetLost).forEach((ship_id)=>{
+                                const ship = fleetLost[ship_id];
+                                data[ships_dict[ship_id]] = -1*ship;
                             });
                         }
                         if(rawData.dataset.rawItemsgained) {
